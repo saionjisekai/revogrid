@@ -212,6 +212,10 @@ export namespace Components {
           * When true enable clipboard.
          */
         "useClipboard": boolean;
+        /**
+          * grid scale.
+         */
+        "zoom": number;
     }
     interface RevogrClipboard {
         "doCopy": (e: DataTransfer, data?: RevoGrid.DataFormat[][]) => Promise<void>;
@@ -307,6 +311,10 @@ export namespace Components {
          */
         "selectionStore": Observable<Selection.SelectionStoreState>;
         "useClipboard": boolean;
+        /**
+          * grid scale.
+         */
+        "zoom": number;
     }
     interface RevogrRowHeaders {
         "dataPorts": ViewportData[];
@@ -723,6 +731,10 @@ declare namespace LocalJSX {
           * When true enable clipboard.
          */
         "useClipboard"?: boolean;
+        /**
+          * grid scale.
+         */
+        "zoom"?: number;
     }
     interface RevogrClipboard {
         "onCopyRegion"?: (event: RevogrClipboardCustomEvent<DataTransfer>) => void;
@@ -873,6 +885,10 @@ declare namespace LocalJSX {
          */
         "selectionStore"?: Observable<Selection.SelectionStoreState>;
         "useClipboard"?: boolean;
+        /**
+          * grid scale.
+         */
+        "zoom"?: number;
     }
     interface RevogrRowHeaders {
         "dataPorts"?: ViewportData[];

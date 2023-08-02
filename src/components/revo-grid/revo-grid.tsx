@@ -63,6 +63,8 @@ export class RevoGridComponent {
   @Prop() canFocus: boolean = true;
   /** When true enable clipboard. */
   @Prop() useClipboard: boolean = true;
+  /** grid scale. */
+  @Prop() zoom: number = 1;
   /**
    * Columns - defines an array of grid columns.
    * Can be column or grouped column.
@@ -276,7 +278,7 @@ export class RevoGridComponent {
 
   /**  Before column applied but after column set gathered and viewport updated */
   @Event() beforecolumnapplied: EventEmitter<ColumnCollection>;
-  
+
 
   /**  Column updated */
   @Event() aftercolumnsset: EventEmitter<{
@@ -518,7 +520,7 @@ export class RevoGridComponent {
   //  Listeners outside scope
   //
   // --------------------------------------------------------------------------
-  
+
   /** Clear data which is outside of grid container */
   private handleOutsideClick({ target }: { target: HTMLElement | null }) {
     if (!target?.closest(`[${UUID}="${this.uuid}"]`)) {
@@ -764,6 +766,10 @@ export class RevoGridComponent {
     }
   }
 
+  @Watch('zoom') applyZoom(zoom: number) {
+    (this.element.style as any).zoom = zoom;
+  }
+
   connectedCallback() {
     this.viewportProvider = new ViewportProvider();
     this.themeService = new ThemeService({
@@ -827,7 +833,7 @@ export class RevoGridComponent {
     this.trimmedRowsChanged(this.trimmedRows);
     this.rowDefChanged(this.rowDefinitions);
     this.groupingChanged(this.grouping);
-    
+
     this.selectionStoreConnector = new SelectionStoreConnector();
     this.scrollingService = new GridScrollingService((e: RevoGrid.ViewPortScrollEvent) => {
       this.dimensionProvider.setViewPortCoordinate({
@@ -886,6 +892,7 @@ export class RevoGridComponent {
       resize={this.resize}
       readonly={this.readonly}
       range={this.range}
+      zoom={this.zoom}
       rowClass={this.rowClass}
       editors={this.editors}
       useClipboard={this.useClipboard}
@@ -903,7 +910,7 @@ export class RevoGridComponent {
       onScroll={details => this.scrollingService.onScroll(details)}
     />);
     return (
-      <Host {...{ [`${UUID}`]: this.uuid }}>
+      <Host {...{ [`${UUID}`]: this.uuid }} style={{ zoom: `${this.zoom}` }}>
         <RevoViewPort
           viewports={this.viewportProvider.stores}
           dimensions={this.dimensionProvider.stores}
