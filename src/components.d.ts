@@ -157,6 +157,10 @@ export namespace Components {
          */
         "rowHeaders": RevoGrid.RowHeaders | boolean;
         /**
+          * Row properties function. This function will be called on each rgRow object and can be used to define additional properties.
+         */
+        "rowProperties": RevoGrid.RowPropertiesFunc;
+        /**
           * Indicates default rgRow size. By default 0, means theme package size will be applied
          */
         "rowSize": number;
@@ -227,6 +231,7 @@ export namespace Components {
         "range": boolean;
         "readonly": boolean;
         "rowClass": string;
+        "rowProperties": RevoGrid.RowPropertiesFunc;
         "rowSelectionStore": Observable<Selection.SelectionStoreState>;
         "viewportCol": Observable<RevoGrid.ViewportState>;
         "viewportRow": Observable<RevoGrid.ViewportState>;
@@ -699,6 +704,10 @@ declare namespace LocalJSX {
          */
         "rowHeaders"?: RevoGrid.RowHeaders | boolean;
         /**
+          * Row properties function. This function will be called on each rgRow object and can be used to define additional properties.
+         */
+        "rowProperties"?: RevoGrid.RowPropertiesFunc;
+        /**
           * Indicates default rgRow size. By default 0, means theme package size will be applied
          */
         "rowSize"?: number;
@@ -740,6 +749,7 @@ declare namespace LocalJSX {
         "range"?: boolean;
         "readonly"?: boolean;
         "rowClass"?: string;
+        "rowProperties"?: RevoGrid.RowPropertiesFunc;
         "rowSelectionStore"?: Observable<Selection.SelectionStoreState>;
         "viewportCol"?: Observable<RevoGrid.ViewportState>;
         "viewportRow"?: Observable<RevoGrid.ViewportState>;

@@ -107,6 +107,12 @@ export class RevoGridComponent {
   @Prop({ reflect: true }) rowClass: string = '';
 
   /**
+   * Row properties function.
+   * This function will be called on each rgRow object and can be used to define additional properties.
+   */
+  @Prop() rowProperties: RevoGrid.RowPropertiesFunc;
+
+  /**
    * Autosize config
    * Enable columns autoSize, for more details check @autoSizeColumn plugin
    * By default disabled, hence operation is not resource efficient
@@ -276,7 +282,7 @@ export class RevoGridComponent {
 
   /**  Before column applied but after column set gathered and viewport updated */
   @Event() beforecolumnapplied: EventEmitter<ColumnCollection>;
-  
+
 
   /**  Column updated */
   @Event() aftercolumnsset: EventEmitter<{
@@ -518,7 +524,7 @@ export class RevoGridComponent {
   //  Listeners outside scope
   //
   // --------------------------------------------------------------------------
-  
+
   /** Clear data which is outside of grid container */
   private handleOutsideClick({ target }: { target: HTMLElement | null }) {
     if (!target?.closest(`[${UUID}="${this.uuid}"]`)) {
@@ -827,7 +833,7 @@ export class RevoGridComponent {
     this.trimmedRowsChanged(this.trimmedRows);
     this.rowDefChanged(this.rowDefinitions);
     this.groupingChanged(this.grouping);
-    
+
     this.selectionStoreConnector = new SelectionStoreConnector();
     this.scrollingService = new GridScrollingService((e: RevoGrid.ViewPortScrollEvent) => {
       this.dimensionProvider.setViewPortCoordinate({
@@ -887,6 +893,7 @@ export class RevoGridComponent {
       readonly={this.readonly}
       range={this.range}
       rowClass={this.rowClass}
+      rowProperties={this.rowProperties}
       editors={this.editors}
       useClipboard={this.useClipboard}
       columns={this.viewport.columns}

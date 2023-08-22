@@ -25,6 +25,7 @@ export class RevogrData {
   @Prop() canDrag: boolean;
 
   @Prop() rowClass: string;
+  @Prop() rowProperties: RevoGrid.RowPropertiesFunc;
   @Prop() rowSelectionStore: Observable<Selection.SelectionStoreState>;
   @Prop() viewportRow: Observable<RevoGrid.ViewportState>;
   @Prop() viewportCol: Observable<RevoGrid.ViewportState>;
@@ -77,11 +78,12 @@ export class RevogrData {
       if (range && rgRow.itemIndex >= range.y && rgRow.itemIndex <= range.y1) {
         rowClass += ' focused-rgRow';
       }
+      const rowProperties = this.rowProperties ? this.rowProperties({ model: dataRow, rowIndex: rgRow.itemIndex }) : {};
       for (let rgCol of cols) {
         cells.push(this.getCellRenderer(rgRow, rgCol, this.canDrag, /** grouping apply*/ this.columnService.hasGrouping ? depth : 0));
       }
       rowsEls.push(
-        <RowRenderer rowClass={rowClass} size={rgRow.size} start={rgRow.start}>
+        <RowRenderer rowClass={rowClass} size={rgRow.size} start={rgRow.start} attrs={rowProperties}>
           {cells}
         </RowRenderer>,
       );

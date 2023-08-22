@@ -156,6 +156,7 @@ export declare namespace RevoGrid {
     (sel: any, data: any, children: T): T;
   }
 
+  type RowPropertiesFunc = (props: Pick<ColumnDataSchemaModel, 'rowIndex' | 'model'>) => CellProps | void | undefined;
   type CellTemplateFunc<T> = (createElement: HyperFunc<T>, props: ColumnDataSchemaModel) => any;
   type CellCompareFunc = (prop: ColumnProp, a: DataType, b: DataType) => number;
   type ColumnTemplateFunc<T> = (createElement: HyperFunc<T>, props: ColumnRegular) => T | T[] | string;
