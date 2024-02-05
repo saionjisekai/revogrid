@@ -52,6 +52,8 @@ export class OverlaySelection {
   @Prop() lastCell: Selection.Cell;
   /** Custom editors register */
   @Prop() editors: Edition.Editors;
+  /** grid scale. */
+  @Prop() zoom: number;
 
   // --------------------------------------------------------------------------
   //
@@ -88,7 +90,7 @@ export class OverlaySelection {
 
   @Listen('mousemove', { target: 'document' }) onMouseMove(e: MouseEvent) {
     if (this.selectionStoreService.focused) {
-      this.autoFillService.selectionMouseMove(e);
+      this.autoFillService.selectionMouseMove({ x: e.x / this.zoom, y: e.y / this.zoom } as MouseEvent);
     }
   }
 
@@ -273,7 +275,7 @@ export class OverlaySelection {
       return;
     }
     // Regular cell click
-    const focusCell = getCurrentCell({ x: e.x, y: e.y }, data);
+    const focusCell = getCurrentCell({ x: e.x / this.zoom, y: e.y / this.zoom }, data);
     this.selectionStoreService.focus(focusCell, this.range && e.shiftKey);
 
     // Initiate autofill selection

@@ -85,7 +85,7 @@
     <section class="content">
       <div class="tile large grid-holder">
         <!-- Grid init-->
-        <revo-grid theme="material" row-headers can-move-columns stretch="false" class="my" key="1"></revo-grid>
+        <revo-grid zoom="1" theme="material" row-headers can-move-columns stretch="false" class="my" key="1"></revo-grid>
       </div>
     </section>
 
@@ -98,6 +98,10 @@
       <button onclick="exportGrid()">Export to csv</button>
       <button onclick="scrollToCol(30)">Scroll to column 30</button>
       <button onclick="setEdit(30, 10)">Set edit 30:1</button>
+      <label>
+        zoom: <input type="range" min="10" max="200" value="100" step="10" oninput="setZoom(event.target.value)" />
+        <span id="zoom">100%</span>
+      </label>
       <hr />
       <div>
         <strong>Set data</strong>
@@ -164,6 +168,11 @@
         const grid = document.querySelector('revo-grid');
         grid.setCellEdit(rgRow, prop);
       };
+      window.setZoom = function (value) {
+        document.querySelector('#zoom').innerHTML = `${value}%`
+        const grid = document.querySelector('revo-grid');
+        grid.zoom  = value / 100;
+      };
       window.scrollToCol = function (x = 30) {
         const grid = document.querySelector('revo-grid');
         grid.scrollToColumnProp(x);
@@ -223,7 +232,7 @@
           if (!grid.columns || grid.columns.length != data.headers.length) {
             grid.columns = data.headers;
           }
-          
+
           grid.source = data.rows;
 
           grid.pinnedTopSource = data.pinnedTopRows;
@@ -311,7 +320,7 @@
           index: 1,
           size: 100
       }];
-      /* 
+      /*
         grid.autoSizeColumn = {
           mode: 'autoSizeAll',
         };*/

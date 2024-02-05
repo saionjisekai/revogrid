@@ -18,6 +18,7 @@
 | `readonly`       | `readonly`      |                                                                 | `boolean`                                                      | `undefined` |
 | `selectionStore` | --              | Dynamic stores                                                  | `ObservableMap<SelectionStoreState>`                           | `undefined` |
 | `useClipboard`   | `use-clipboard` |                                                                 | `boolean`                                                      | `undefined` |
+| `zoom`           | `zoom`          | grid scale.                                                     | `number`                                                       | `undefined` |
 
 
 ## Events
