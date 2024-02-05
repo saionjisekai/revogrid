@@ -109,6 +109,12 @@ export class RevoGridComponent {
   @Prop({ reflect: true }) rowClass: string = '';
 
   /**
+   * Row properties function.
+   * This function will be called on each rgRow object and can be used to define additional properties.
+   */
+  @Prop() rowProperties: RevoGrid.RowPropertiesFunc;
+
+  /**
    * Autosize config
    * Enable columns autoSize, for more details check @autoSizeColumn plugin
    * By default disabled, hence operation is not resource efficient
@@ -894,6 +900,7 @@ export class RevoGridComponent {
       range={this.range}
       zoom={this.zoom}
       rowClass={this.rowClass}
+      rowProperties={this.rowProperties}
       editors={this.editors}
       useClipboard={this.useClipboard}
       columns={this.viewport.columns}

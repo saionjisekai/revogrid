@@ -10,6 +10,7 @@ type Props = {
   readonly: boolean;
   range: boolean;
   rowClass: string;
+  rowProperties: RevoGrid.RowPropertiesFunc;
   resize: boolean;
   columns: ViewportProps[];
   columnFilter: boolean;
@@ -24,7 +25,7 @@ type Props = {
  * First we render vertical parts - pinned start, data, pinned end
  * Per each column we render data collections: headers, pinned top, center data, pinned bottom
  */
-export const ViewPortSections = ({ resize, editors, rowClass, readonly, range, columns, useClipboard, columnFilter, registerElement, onEdit, onCancelEdit, onScroll, zoom }: Props) => {
+export const ViewPortSections = ({ resize, editors, rowClass, rowProperties, readonly, range, columns, useClipboard, columnFilter, registerElement, onEdit, onCancelEdit, onScroll, zoom }: Props) => {
   const viewPortHtml: VNode[] = [];
   /** render viewports columns */
   for (let view of columns) {
@@ -62,6 +63,7 @@ export const ViewPortSections = ({ resize, editors, rowClass, readonly, range, c
             readonly={readonly}
             range={range}
             rowClass={rowClass}
+            rowProperties={rowProperties}
             rowSelectionStore={data.rowSelectionStore}
             slot={DATA_SLOT}
           />
