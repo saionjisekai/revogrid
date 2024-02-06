@@ -7,6 +7,7 @@ import { DATA_COL, FOCUS_CLASS, HEADER_CLASS, HEADER_SORTABLE_CLASS, MIN_COL_SIZ
 import { HeaderCellRenderer } from './headerCellRenderer';
 
 type Props = {
+  depth: number;
   column: RevoGrid.VirtualPositionItem;
   data?: RevoGrid.ColumnRegular;
   range?: Selection.RangeArea;
@@ -25,6 +26,17 @@ const HeaderRenderer = (p: Props): VNode => {
   if (p.data?.order) {
     cellClass[p.data.order] = true;
   }
+  const style: any = {
+    width: `${p.column.size}px`,
+    transform: `translateX(${p.column.start}px)`,
+  };
+  if (p.depth > 0) {
+    style.height = (p.depth + 1) + '00%';
+    style.top = `-${p.depth}00%`;
+    style.backgroundColor = '#f8f9fa';
+    style.display = 'flex';
+    style.alignItems = 'center';
+  }
   const dataProps = {
     [DATA_COL]: p.column.itemIndex,
     canResize: p.canResize,
@@ -32,7 +44,7 @@ const HeaderRenderer = (p: Props): VNode => {
     maxWidth: p.data?.maxSize,
     active: ['r'],
     class: cellClass,
-    style: { width: `${p.column.size}px`, transform: `translateX(${p.column.start}px)` },
+    style: style,
     onResize: p.onResize,
     onDoubleClick(originalEvent: MouseEvent) {
       p.onDoubleClick({ column: p.data, index: p.column.itemIndex, originalEvent });

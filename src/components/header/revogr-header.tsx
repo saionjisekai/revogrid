@@ -51,12 +51,34 @@ export class RevogrHeaderComponent {
     const range = this.selectionStore?.get('range');
     const cells: VNode[] = [];
     const visibleProps: { [prop: string]: number } = {};
+    const depthMaps: Record<string, boolean>[] = [];
+
+    for (let i = 0; i < this.groupingDepth; i++) {
+      const map: Record<string, boolean> = {};
+      if (this.groups[i]) {
+        for (const group of this.groups[i]) {
+          for (const id of group.ids) {
+            map[id] = true;
+          }
+        }
+      }
+      depthMaps.push(map);
+    }
 
     // render header columns
     for (let rgCol of cols) {
       const colData = this.colData[rgCol.itemIndex];
+      let depth = 0;
+      if (colData) {
+        for (const depthInfo of depthMaps) {
+          if (!depthInfo[colData?.prop]) {
+            depth++;
+          }
+        }
+      }
       cells.push(
         <HeaderRenderer
+          depth={depth}
           range={range}
           column={rgCol}
           data={colData}
@@ -68,6 +90,7 @@ export class RevogrHeaderComponent {
         />,
       );
       visibleProps[colData?.prop] = rgCol.itemIndex;
+      // console.log(111, colData?.prop, ignoreCols[colData?.prop]);
     }
 
     return [
