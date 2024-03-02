@@ -53,7 +53,7 @@ export class KeyboardService {
 
     // pressed clear key
     if (isClear(e.code)) {
-      this.sv.clearCell();
+      // this.sv.clearCell();
       return;
     }
 
