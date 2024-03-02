@@ -64,6 +64,8 @@ enum codesLetter {
   ARROW_UP = 'ArrowUp',
   ARROW_DOWN = 'ArrowDown',
   SHIFT = 'Shift',
+  HOME = 'Home',
+  END = 'End',
 }
 
 enum keyValues {

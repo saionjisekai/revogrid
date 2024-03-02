@@ -80,6 +80,24 @@ export class KeyboardService {
       return;
     }
 
+    // pressed home
+    if (codesLetter.HOME === e.code) {
+      const cell = this.sv.selectionStoreService.focused;
+      cell.x = 0;
+      if (this.ctrlDown) cell.y = 0;
+      this.sv.selectionStoreService.focus(cell);
+      return e.preventDefault();
+    }
+
+    // pressed end
+    if (codesLetter.END === e.code) {
+      const cell = this.sv.selectionStoreService.focused;
+      cell.x = 999999;
+      if (this.ctrlDown) cell.y = 999999;
+      this.sv.selectionStoreService.focus(cell);
+      return e.preventDefault();
+    }
+
     // pressed arrow, change selection position
     if (await this.keyChangeSelection(e, canRange)) {
       return;
