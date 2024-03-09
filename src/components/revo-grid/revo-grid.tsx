@@ -785,6 +785,7 @@ export class RevoGridComponent {
     this.columnProvider = new ColumnDataProvider();
     this.dataProvider = new DataProvider(this.dimensionProvider);
     this.uuid = `${new Date().getTime()}-rvgrid`;
+    this.selectionStoreConnector = new SelectionStoreConnector();
 
     const pluginData = {
       data: this.dataProvider,
@@ -840,7 +841,6 @@ export class RevoGridComponent {
     this.rowDefChanged(this.rowDefinitions);
     this.groupingChanged(this.grouping);
 
-    this.selectionStoreConnector = new SelectionStoreConnector();
     this.scrollingService = new GridScrollingService((e: RevoGrid.ViewPortScrollEvent) => {
       this.dimensionProvider.setViewPortCoordinate({
         coordinate: e.coordinate,
