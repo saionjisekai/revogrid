@@ -290,4 +290,13 @@ export default class ViewportService {
     };
     this.sv.selectionStoreConnector?.setEditByCell(storeCoordinate, { x: colIndex, y: rowIndex });
   }
+
+  setFocus(rowIndex: number, colIndex: number, colType: RevoGrid.DimensionCols, rowType: RevoGrid.DimensionRows) {
+    const stores = this.storesByType;
+    const storeCoordinate = {
+      x: stores[colType],
+      y: stores[rowType],
+    };
+    this.sv.selectionStoreConnector?.setFocusByCell(storeCoordinate, { x: colIndex, y: rowIndex });
+  }
 }

@@ -257,6 +257,16 @@ Type: `Promise<void>`
 
 
 
+### `setCellFocus(rgRow: number, prop: RevoGrid.ColumnProp, rowSource?: RevoGrid.DimensionRows) => Promise<void>`
+
+set cell focus
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `updateColumnSorting(column: RevoGrid.ColumnRegular, index: number, order: 'asc' | 'desc', additive: boolean) => Promise<RevoGrid.ColumnRegular>`
 
 Update column sorting

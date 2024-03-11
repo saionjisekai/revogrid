@@ -422,6 +422,17 @@ export class RevoGridComponent {
     this.viewport?.setEdit(rgRow, this.columnProvider.getColumnIndexByProp(prop, colGroup), colGroup, rowSource);
   }
 
+  /**  set cell focus */
+  @Method() async setCellFocus(rgRow: number, prop: RevoGrid.ColumnProp, rowSource: RevoGrid.DimensionRows = 'rgRow') {
+    const rgCol = ColumnDataProvider.getColumnByProp(this.columns, prop);
+    if (!rgCol) {
+      return;
+    }
+    await timeout();
+    const colGroup = rgCol.pin || 'rgCol';
+    this.viewport?.setFocus(rgRow, this.columnProvider.getColumnIndexByProp(prop, colGroup), colGroup, rowSource);
+  }
+
   /**
    * Register new virtual node inside of grid
    * Used for additional items creation such as plugin elements
