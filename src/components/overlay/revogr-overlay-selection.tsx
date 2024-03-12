@@ -139,7 +139,10 @@ export class OverlaySelection {
     this.keyboardService = new KeyboardService({
       selectionStoreService: this.selectionStoreService,
       selectionStore: s,
-      doEdit: (v) => this.doEdit(v),
+      doEdit: (v) => {
+        if (this.canEdit()) this.doEdit(v);
+        else this.focusNext();
+      },
       cancelEdit: () => this.closeEdit(),
       clearCell: () => this.clearCell(),
       getData: () => this.getData(),

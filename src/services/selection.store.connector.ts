@@ -190,8 +190,16 @@ export default class SelectionStoreConnector {
         }
         if (nextItem[type] >= 0) {
           nextStore = stores[++currentStorePointer[type]];
+          if (!nextStore && focus.y < lastCell.y - 1) {
+            nextStore = stores[0];
+            nextItem.y = focus.y + 1;
+          }
         } else {
           nextStore = stores[--currentStorePointer[type]];
+          if (!nextStore && focus.y > 0) {
+            nextStore = stores[Object.keys(stores).length - 1];
+            nextItem.y = focus.y - 1;
+          }
           const nextLastCell = nextStore?.store.get('lastCell');
           if (nextLastCell) {
             nextItem[type] = nextLastCell[type] + nextItem[type];

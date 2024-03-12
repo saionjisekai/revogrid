@@ -2,7 +2,7 @@ import { Observable, Selection } from '../../interfaces';
 import { getRange } from '../../store/selection/selection.helpers';
 import SelectionStoreService from '../../store/selection/selection.store.service';
 import { codesLetter } from '../../utils/keyCodes';
-import { isClear, isCtrlKey, isEnterKeyValue, isLetterKey } from '../../utils/keyCodes.utils';
+import { isClear, isCtrlKey, isEnterKeyValue, isLetterKey, isTabKeyValue } from '../../utils/keyCodes.utils';
 import { timeout } from '../../utils/utils';
 import { EventData, getCoordinate, isAfterLast, isBeforeFirst } from './selection.utils';
 
@@ -159,16 +159,10 @@ export class KeyboardService {
         e.preventDefault();
         break;
     }
-    switch (e.code) {
-      case codesLetter.ARROW_UP:
-        return { changes: { y: -1 }, isMulti };
-      case codesLetter.ARROW_DOWN:
-        return { changes: { y: 1 }, isMulti };
-      case codesLetter.ARROW_LEFT:
-        return { changes: { x: -1 }, isMulti };
-      case codesLetter.TAB:
-      case codesLetter.ARROW_RIGHT:
-        return { changes: { x: 1 }, isMulti };
-    }
+    if (e.code === codesLetter.ARROW_UP) return { changes: { y: -1 }, isMulti };
+    if (e.code === codesLetter.ARROW_DOWN) return { changes: { y: 1 }, isMulti };
+    const isTab = isTabKeyValue(e.code);
+    if (e.code === codesLetter.ARROW_LEFT || (isTab && e.shiftKey)) return { changes: { x: -1 }, isMulti };
+    if (e.code === codesLetter.ARROW_RIGHT || isTab) return { changes: { x: 1 }, isMulti };
   }
 }
