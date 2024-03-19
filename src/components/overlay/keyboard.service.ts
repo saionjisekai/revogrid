@@ -63,8 +63,19 @@ export class KeyboardService {
       return;
     }
 
-    // copy operation
-    if (this.isCopy(e) || this.isSearch(e) || this.isRefresh(e)) {
+    // copy or save operation
+    if (this.isCopy(e) || this.isSave(e)) {
+      return;
+    }
+
+    if (this.ctrlDown && (
+      e.code == 'KeyN'
+      || e.code == 'KeyO'
+      || e.code == 'KeyK'
+      || e.code == 'KeyF'
+      || e.code == 'KeyR'
+      || e.code == 'KeyH'
+    )) {
       this.ctrlDown = false;
       return;
     }
@@ -142,7 +153,6 @@ export class KeyboardService {
   }
 
   isCopy(e: KeyboardEvent): boolean {
-    console.log(11111, e.code);
     return this.ctrlDown && e.code == codesLetter.C;
   }
 
@@ -150,12 +160,8 @@ export class KeyboardService {
     return this.ctrlDown && e.code == codesLetter.V;
   }
 
-  isSearch(e: KeyboardEvent): boolean {
-    return this.ctrlDown && e.code == codesLetter.F;
-  }
-
-  isRefresh(e: KeyboardEvent): boolean {
-    return this.ctrlDown && e.code == codesLetter.R;
+  isSave(e: KeyboardEvent): boolean {
+    return this.ctrlDown && e.code == codesLetter.S;
   }
 
   /** Monitor key direction changes */
