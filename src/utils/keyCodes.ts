@@ -55,6 +55,8 @@ enum codesLetter {
   ENTER_NUM = 'NumpadEnter',
   V = 'KeyV',
   C = 'KeyC',
+  F = 'KeyF',
+  R = 'KeyR',
   ESCAPE = 'Escape',
   TAB = 'Tab',
   BACKSPACE = 'Backspace',

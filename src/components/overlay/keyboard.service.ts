@@ -64,7 +64,8 @@ export class KeyboardService {
     }
 
     // copy operation
-    if (this.isCopy(e)) {
+    if (this.isCopy(e) || this.isSearch(e) || this.isRefresh(e)) {
+      this.ctrlDown = false;
       return;
     }
 
@@ -141,10 +142,20 @@ export class KeyboardService {
   }
 
   isCopy(e: KeyboardEvent): boolean {
+    console.log(11111, e.code);
     return this.ctrlDown && e.code == codesLetter.C;
   }
+
   isPaste(e: KeyboardEvent): boolean {
     return this.ctrlDown && e.code == codesLetter.V;
+  }
+
+  isSearch(e: KeyboardEvent): boolean {
+    return this.ctrlDown && e.code == codesLetter.F;
+  }
+
+  isRefresh(e: KeyboardEvent): boolean {
+    return this.ctrlDown && e.code == codesLetter.R;
   }
 
   /** Monitor key direction changes */
