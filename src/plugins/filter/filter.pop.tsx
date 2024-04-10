@@ -213,7 +213,7 @@ export class FilterPanel {
         </div>
         <div class="filter-actions">
           {this.disableDynamicFiltering &&
-            <RevoButton class={{ red: true, save: true }} onClick={() => this.onSave()}>
+            <RevoButton class={{ red: true, save: true }} onClick={(e) => this.onSave(e)}>
               {capts.save}
             </RevoButton>
           }
@@ -316,8 +316,19 @@ export class FilterPanel {
     e.stopPropagation();
   }
 
-  private onSave() {
+  private onSave(e: MouseEvent) {
+    const inputs = (e.target as HTMLButtonElement).parentElement.parentElement.querySelectorAll('input');
+    for (const input of [].slice.call(inputs)) {
+      if (input.value === '') {
+        input.style.border = '1px solid red';
+        input.focus();
+        return;
+      } else {
+        input.style = null;
+      }
+    }
     this.filterChange.emit(this.filterItems);
+    this.onCancel();
   }
 
   private onCancel() {
