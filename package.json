@@ -1,6 +1,6 @@
 {
   "name": "@revolist/revogrid",
-  "version": "3.7.0-keydown-fix-4",
+  "version": "3.7.0-custom-filter",
   "description": "Virtual reactive data grid component - RevoGrid.",
   "license": "MIT",
   "directories": {

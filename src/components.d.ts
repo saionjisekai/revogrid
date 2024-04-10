@@ -16,6 +16,7 @@ import { VNode } from "@stencil/core";
 import { ColumnSource, RowSource } from "./components/data/columnService";
 import { MultiFilterItem, ShowData } from "./plugins/filter/filter.pop";
 import { LogicFunction } from "./plugins/filter/filter.types";
+import { FilterType } from "./plugins/filter/filter.service";
 import { DataSourceState, Groups } from "./store/dataSource/data.store";
 import { ViewportData } from "./components/revo-grid/viewport.interfaces";
 import { ElementScroll } from "./components/revo-grid/viewport.scrolling.service";

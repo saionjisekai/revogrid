@@ -82,6 +82,32 @@ export class FilterPanel {
     this.changes = newEntity;
     if (this.changes) {
       this.changes.type = this.changes.type || defaultType;
+      // clear empty filters
+      Object.keys(this.filterItems).forEach(prop => {
+        if (this.filterItems[prop]) {
+          this.filterItems[prop] = this.filterItems[prop].filter(item => {
+            return item.type === 'empty' || item.type === 'notEmpty' || item.value !== '';
+          });
+          if (!this.filterItems[prop].length) delete this.filterItems[prop];
+        }
+      });
+      // add default filter
+      if (!this.filterItems[this.changes.prop]?.length) {
+        let tempType: FilterType;
+        for (let gIndex in this.filterTypes) {
+          for (const key of this.filterTypes[gIndex]) {
+            if (key === 'contains' || key === 'eqN') {
+              tempType = key;
+              break;
+            }
+          }
+        }
+        if (tempType) {
+          this.currentFilterType = tempType;
+          this.addNewFilterToProp();
+          this.currentFilterType = defaultType;
+        }
+      }
     }
   }
 
