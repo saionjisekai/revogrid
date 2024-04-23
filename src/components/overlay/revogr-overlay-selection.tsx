@@ -137,6 +137,7 @@ export class OverlaySelection {
     });
 
     this.keyboardService = new KeyboardService({
+      parentElement: this.element,
       selectionStoreService: this.selectionStoreService,
       selectionStore: s,
       doEdit: (v) => {

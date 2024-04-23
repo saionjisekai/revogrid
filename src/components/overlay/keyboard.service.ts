@@ -7,6 +7,7 @@ import { timeout } from '../../utils/utils';
 import { EventData, getCoordinate, isAfterLast, isBeforeFirst } from './selection.utils';
 
 type Config = {
+  parentElement: HTMLElement;
   selectionStoreService: SelectionStoreService;
   selectionStore: Observable<Selection.SelectionStoreState>;
   doEdit(val?: any): void;
@@ -96,7 +97,14 @@ export class KeyboardService {
     if (codesLetter.HOME === e.code) {
       const cell = this.sv.selectionStoreService.focused;
       cell.x = 0;
-      if (this.ctrlDown) cell.y = 0;
+      if (this.ctrlDown) {
+        cell.y = 0;
+        const container = this.sv.parentElement.parentElement.parentElement;
+        container.scrollTop = 1;
+        await timeout(5);
+        container.scrollTop = 0;
+        await timeout(5);
+      }
       this.sv.selectionStoreService.focus(cell);
       return e.preventDefault();
     }
