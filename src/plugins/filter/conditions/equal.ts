@@ -1,7 +1,8 @@
 import { LogicFunction, LogicFunctionExtraParam, LogicFunctionParam, ExtraField } from '../filter.types';
 
 const eq: LogicFunction = (value: LogicFunctionParam, extra?: LogicFunctionExtraParam) => {
-  if (typeof value === 'undefined' || (value === null && !extra)) {
+  if (typeof value === 'undefined') value = '';
+  if (value === null && !extra) {
     return true;
   }
   if (typeof value !== 'string') {
@@ -12,7 +13,7 @@ const eq: LogicFunction = (value: LogicFunctionParam, extra?: LogicFunctionExtra
   if (filterVal.length === 0) {
     return true;
   }
-  
+
   return value.toLocaleLowerCase() === filterVal;
 };
 
