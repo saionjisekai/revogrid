@@ -7,6 +7,7 @@ import '../../utils/closestPolifill';
 import { LogicFunction } from './filter.types';
 import { FilterCaptions } from './filter.plugin';
 import debounce from 'lodash/debounce';
+import cloneDeep from 'lodash/cloneDeep';
 
 /**
  * @typedef FilterItem
@@ -57,6 +58,7 @@ export class FilterPanel {
     and: 'and',
     or: 'or',
   };
+  private tempFilterItems: MultiFilterItem = {};
   @State() isFilterIdSet = false;
   @State() filterId = 0;
   @State() currentFilterId: number = -1;
@@ -74,7 +76,7 @@ export class FilterPanel {
     if (this.changes && !e.defaultPrevented) {
       const el = e.target as HTMLElement;
       if (this.isOutside(el) && !isFilterBtn(el)) {
-        this.changes = undefined;
+        this.onCancel();
       }
     }
   }
@@ -353,15 +355,18 @@ export class FilterPanel {
         input.style = null;
       }
     }
+    this.tempFilterItems = cloneDeep(this.filterItems);
     this.filterChange.emit(this.filterItems);
-    this.onCancel();
+    this.changes = undefined;
   }
 
   private onCancel() {
+    this.filterItems = cloneDeep(this.tempFilterItems);
     this.changes = undefined;
   }
 
   private onReset() {
+    this.tempFilterItems = {};
     this.assertChanges();
 
     delete this.filterItems[this.changes.prop];
