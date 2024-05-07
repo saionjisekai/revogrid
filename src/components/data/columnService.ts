@@ -125,6 +125,7 @@ export default class ColumnService implements ColumnServiceI {
       prop: data.prop,
       rowIndex,
       val,
+      column: this.rowDataModel(rowIndex, c).column,
       model: data.model,
       type: this.dataStore.get('type'),
     };

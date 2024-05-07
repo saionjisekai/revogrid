@@ -357,6 +357,7 @@ export declare namespace Edition {
   type BeforeSaveDataDetails = {
     prop: RevoGrid.ColumnProp;
     model: RevoGrid.DataType;
+    column?: RevoGrid.ColumnRegular;
     val?: SaveData;
     rowIndex: number;
     type: RevoGrid.DimensionRows;

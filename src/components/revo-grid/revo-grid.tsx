@@ -633,6 +633,9 @@ export class RevoGridComponent {
     const { defaultPrevented } = this.beforecellfocus.emit(e.detail);
     if (!this.canFocus || defaultPrevented) {
       e.preventDefault();
+    } else if (!e.detail.column) {
+      this.clearFocus();
+      e.preventDefault();
     }
   }
 
