@@ -273,13 +273,20 @@ export default class FilterPlugin extends BasePlugin {
 
     for (const prop of filterProps) {
       // check if we have any filter for a column
-      if (this.multiFilterItems[prop].length > 0) {
-        const firstFilterItem = this.multiFilterItems[prop][0];
+      const items = this.multiFilterItems[prop];
+      items.forEach((item, index, list) => {
+        if (item.type === 'empty' || item.type === 'notEmpty' || item.value !== '') return;
+        list.splice(index, 1);
+      });
+      if (items.length > 0) {
+        const firstFilterItem = items[0];
         collection[prop] = {
           filter: filterEntities[firstFilterItem.type],
           type: firstFilterItem.type,
           value: firstFilterItem.value,
         };
+      } else {
+        delete this.multiFilterItems[prop];
       }
     }
 

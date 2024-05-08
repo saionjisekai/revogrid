@@ -1,6 +1,6 @@
 {
   "name": "@revolist/revogrid",
-  "version": "3.7.0-fix-blank-area",
+  "version": "3.7.0-fix-empty-filter-2",
   "description": "Virtual reactive data grid component - RevoGrid.",
   "license": "MIT",
   "directories": {
